@@ -31,6 +31,9 @@
     if (self.billAmountField.text.length == 0){
         [self hideLabels];
     }
+    if (self.billAmountField.text.length >0 && self.labelsContainerView.alpha == 0){
+        [self showLabels];
+    }
     double tipPercentages[] = {0.15, 0.20, 0.25};
     double tipPercentage = tipPercentages[self.tipPercentageControl.selectedSegmentIndex];
     
@@ -58,8 +61,21 @@
         
         self.labelsContainerView.alpha = 0;
     }];
-    
+}
 
+- (void) showLabels{
+    [UIView  animateWithDuration:0.5 animations:^{
+        CGRect billFrame = self.billAmountField.frame;
+        billFrame.origin.y -= 200;
+        
+        self.billAmountField.frame = billFrame;
+
+        CGRect labelsFrame = self.labelsContainerView.frame;
+        labelsFrame.origin.y -= 200;
+        self.labelsContainerView.frame = labelsFrame;
+        
+        self.labelsContainerView.alpha = 1;
+    }];
 }
 
 /*
